@@ -1,0 +1,218 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>계란 반숙 타이머</title>
+
+	<style type="text/css">
+		
+	@font-face {
+    font-family: 'Cafe24Ssurround';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_2105_2@1.0/Cafe24Ssurround.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+
+	body{font-family: 'Cafe24Ssurround'; overflow: hidden; position: relative;}
+
+	html{height: 100%; font-size: 30px; }
+
+	body{position: relative;width: 100%;height: 100%; background-color: #c8c3bf;}
+
+
+	.center{width: 540px; height: 540px; 
+			position: absolute;top: 50%;left: 50%;margin:-270px 0 0 -270px}
+
+	
+
+	.white {color:#3a3a3a;}
+
+	.margin { margin: auto; }
+
+	.red { height: 140px; width: 540px;  position: relative;
+			}
+	.red img {position: absolute; top: 0; left: 0; width: 100%; top: -30%;}
+
+	.blue { height: 400px; background-image: url("pot.png"); background-size: contain;
+			background-repeat: no-repeat;}
+
+
+	.text {text-align: center; line-height: 400px;}
+
+	.egg {width: 80px; height: 80px; position: absolute; left: 100px; top: 500px;
+			background-image: url("egg.png"); background-size: contain;
+			background-repeat: no-repeat;}
+
+
+
+	.egg:hover {transform: scale(1.1);}
+
+
+
+
+
+
+
+
+
+
+
+	.bg {background-color: #c8c3bf;}
+
+
+
+
+
+	.chick { width: 200px; }
+
+
+
+
+	.move {animation: motion 0.3s cubic-bezier(.39,0,.62,1) infinite alternate; margin-top: 0;}
+        
+	@keyframes motion {
+	0% {margin-top: 0px;}
+	100% {margin-top: 7px;}
+}
+
+
+
+	</style>
+
+
+
+</head>
+<body>
+
+
+
+
+
+
+
+ 
+
+
+
+
+
+	<section class="white center">
+		
+	
+	<div class="red">
+		<img src="title.png" class="move">
+	</div>
+
+	<div class="blue text">
+		<div id="t"></div>
+	</div>
+
+	</section>
+
+
+
+
+
+	<img class="chick" id="img1" style="position:absolute; left:0; top:0; z-index:999;"  src="chick.png">
+
+
+
+	<script language="JavaScript">
+
+    var mouseX = 0;
+    var mouseY = 0; 
+ 
+    function getMousePosition(e){
+        var eObj = window.event? window.event : e; 
+        mouseX = eObj.clientX;
+        mouseY = eObj.clientY + document.documentElement.scrollTop; 
+    }
+ 
+    function moveImg(){
+       
+        var m_x = parseInt(document.getElementById('img1').style.left.replace('px', ''));
+        var m_y = parseInt(document.getElementById('img1').style.top.replace('px', ''));
+ 
+       
+        document.getElementById('img1').style.left = Math.round(m_x + ((mouseX - m_x - 10 ) / 5)) + 'px';
+        document.getElementById('img1').style.top = Math.round(m_y + ((mouseY - m_y - 10) / 5)) + 'px';
+ 
+      
+    }
+ 
+    document.onmousemove = getMousePosition; 
+    setInterval("moveImg()", 50); 
+
+
+
+
+
+
+
+ 
+
+</script>
+
+
+<script type="text/javascript">
+	var time = 360;
+    var min = "";
+    var sec = "";
+
+    var timer = setInterval(function() {
+
+    	min = parseInt(time/60);
+    	sec = time%60;
+
+    	document. getElementById("t"). innerHTML = min + "분" + sec + "초 남았습니다.";
+    	time--;
+
+    	if (time < 0) {
+    		clearInterval(timer);
+    		document. getElementById("t"). innerHTML= "반숙 완성!";
+    	}
+
+
+
+    },1000);
+</script>
+
+
+<script type="text/javascript">
+
+
+makeEgg();
+function makeEgg(){
+	
+	var a = document.createElement("div");
+	a.id = "box";
+	a. className = "egg";
+
+	var b = Math.random()*window.innerWidth;
+	var c = Math.random()*window.innerHeight;
+	var audio = new Audio("music2.mp3");
+
+
+	a.style.left = b+ "px";
+	a.style.top = c+ "px";
+	a.onclick = function(){
+		a.parentNode.removeChild(a);
+		makeEgg();
+		audio.play();
+	}
+	document.body.appendChild(a);
+
+}
+
+
+
+
+</script>
+
+
+
+
+
+</body>
+
+
+</html>
